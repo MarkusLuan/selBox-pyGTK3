@@ -1,19 +1,14 @@
-# selBox-pyGTK3
-#### ComboBox (ou Select) usando biblioteca pyGTK3+ e python 3.4
-#### que me permite facilmente:
-- Ajustar o tamanho
-- Pesquisar elementos, tanto por código, como pelo texto em si
-- Selecionar pelo teclado
-
-### Para usar é só:
-```python
+import gi
 from selBox import selBox
+gi.require_version("Gtk", "3.0")
+from gi.repository import Gtk
 
 sel = selBox(["Selecionar produto"])
 sel.set_name("sel")
 
 #inicializar o Gtk
 gBuilder = Gtk.Builder()
+gBuilder.add_from_file("ui.glade")
 window = gBuilder.get_object("window1")
 grid = gBuilder.get_object("grid1")
 
@@ -26,11 +21,10 @@ grid.child_set_property(sel, "left_attach", 1)
 grid.child_set_property(sel, "top_attach", 0)
 grid.child_set_property(sel, "width", 1)
 grid.child_set_property(sel, "height", 1)
-```
 
-### Inserir:
-```python
-sel.insert(codigo, codigo + " - " + produto + "\n" + descricao)
- ```
- 
- ![Exemplo](/selBox.png)
+sel.insert("1", "1" + " - " + "Produto de teste" + "\n" + "descrição 1")
+sel.insert("2", "2" + " - " + "Produto de teste" + "\n" + "descrição 2")
+sel.insert("3", "3" + " - " + "Produto de teste" + "\n" + "descrição 3")
+
+window.show()
+Gtk.main()
